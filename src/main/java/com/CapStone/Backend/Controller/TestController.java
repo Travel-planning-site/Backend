@@ -16,7 +16,7 @@ public class TestController {
 
     @GetMapping("/test")
     public Boolean testCallback() {
-        System.out.println("google key 값 : " + Kakao_API_Key);
+        System.out.println("kakao key 값 : " + Kakao_API_Key);
         return true;
     }
 
