@@ -1,8 +1,8 @@
 package com.CapStone.Backend.Controller;
 
 import com.CapStone.Backend.Dto.CoordinateRequest;
+import com.CapStone.Backend.Dto.DurationResponse;
 import com.CapStone.Backend.Dto.NavigationResponse;
-import com.CapStone.Backend.Entity.Coordinate;
 import com.CapStone.Backend.Service.APIService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +21,15 @@ public class APIController {
     }
 
     // 카카오 Navi API
-    @GetMapping("/KaokaoNavi")
+    @GetMapping("/kaokaoNavi")
     public NavigationResponse kakaoNaviApi(@RequestBody CoordinateRequest coordinateRequest) {
+        System.out.println(coordinateRequest.toString());
         return null;
     }
 
     // 구글 맵 API
+    @GetMapping("/googleMap")
+    public DurationResponse googleMapApi(@RequestBody CoordinateRequest coordinateRequest) {
+        return null;
+    }
 }
