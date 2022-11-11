@@ -4,6 +4,7 @@ package com.CapStone.Backend.Entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigInteger;
 
 @Getter
 @NoArgsConstructor
