@@ -9,6 +9,7 @@
 # ignore properties file
 application.properties
 application-API-KEY.properties
+application-SQL.properties
 
 # User-specific stuff
 .idea/**/workspace.xml
