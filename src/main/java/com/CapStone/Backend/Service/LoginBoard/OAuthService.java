@@ -5,6 +5,10 @@ import com.CapStone.Backend.Dto.OAuthToken;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -14,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+
+import java.math.BigInteger;
 
 @Service
 public class OAuthService {
@@ -73,15 +79,38 @@ public class OAuthService {
 
         return restTemplate.exchange(url, HttpMethod.GET, request, String.class);
     }
-
     public GoogleUserDto getUserInfo(ResponseEntity<String> userInfoResponse) {
         GoogleUserDto googleUserDto = null;
-        System.out.println("야 : " + userInfoResponse);
-        try {
-            googleUserDto = objectMapper.readValue(userInfoResponse.getBody(), GoogleUserDto.class);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        googleUserDto = parserResponse(userInfoResponse);
+        return googleUserDto;
+    }
+
+    public GoogleUserDto parserResponse(ResponseEntity<String> userInfoResponse) {
+        JsonParser parser = new JsonParser();
+        JsonElement element = parser.parse(userInfoResponse.getBody());
+        System.out.println(userInfoResponse);
+
+        String id = element.getAsJsonObject().get("id").getAsString();
+        BigInteger bigInteger = new BigInteger(id);
+        Long lll = bigInteger.longValue();
+        String email = element.getAsJsonObject().get("email").getAsString();
+        Boolean verifiedEmail = element.getAsJsonObject().get("verified_email").getAsBoolean();
+        String name = element.getAsJsonObject().get("name").getAsString();
+        String givenName = element.getAsJsonObject().get("given_name").getAsString();
+        String familyName = element.getAsJsonObject().get("family_name").getAsString();
+        String picture = element.getAsJsonObject().get("picture").getAsString();
+        String local = element.getAsJsonObject().get("locale").getAsString();
+
+        GoogleUserDto googleUserDto = GoogleUserDto.builder()
+                .id(lll)
+                .email(email)
+                .verifiedEmail(verifiedEmail)
+                .name(name)
+                .givenName(givenName)
+                .familyName(familyName)
+                .picture(picture)
+                .locale(local)
+                .build();
         return googleUserDto;
     }
 

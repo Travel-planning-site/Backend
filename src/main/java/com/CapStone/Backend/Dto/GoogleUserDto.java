@@ -3,13 +3,15 @@ package com.CapStone.Backend.Dto;
 import com.CapStone.Backend.Entity.User;
 import lombok.*;
 
+import java.math.BigInteger;
+
 @Setter
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class GoogleUserDto {
-    public String id;
+    public Long id;
     public String email;
     public Boolean verifiedEmail;
     public String name;
@@ -20,7 +22,7 @@ public class GoogleUserDto {
 
 
     public User toUser(String accessToken) {
-        return new User(Long.valueOf(id), email, name, accessToken);
+        return new User(id, email, name, accessToken);
     }
 
 }
