@@ -1,7 +1,6 @@
 package com.CapStone.Backend.Controller;
 
 import com.CapStone.Backend.Dto.TokenResponseDto;
-import com.CapStone.Backend.Service.LoginBoard.TokenMananger;
 import com.CapStone.Backend.Service.LoginBoard.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,7 +24,6 @@ public class LoginBoardController {
     private String RESPONSE_TYPE = "code";
     private String SCOPE = "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile";
     private final UserService userService;
-    private final TokenMananger tokenMananger;
     @GetMapping("/login")
     public String login() {
         System.out.println("동작");
