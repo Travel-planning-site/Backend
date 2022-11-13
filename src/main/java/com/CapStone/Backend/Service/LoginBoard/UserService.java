@@ -48,4 +48,9 @@ public class UserService {
         User user = googleUser.toUser(oAuthToken.getAccessToken());
         userRepository.save(user);
     }
+
+
+    public User findById(Long Id) {
+        return userRepository.findById(Id).orElseThrow(IllegalArgumentException::new);
+    }
 }

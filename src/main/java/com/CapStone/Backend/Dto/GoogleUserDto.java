@@ -3,8 +3,6 @@ package com.CapStone.Backend.Dto;
 import com.CapStone.Backend.Entity.User;
 import lombok.*;
 
-import java.math.BigInteger;
-
 @Setter
 @Getter
 @Builder
