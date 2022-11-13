@@ -26,6 +26,7 @@ public class BearerAuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         logger.info(">>> interceptor.preHandle 호출");
         String token = authorizationExtractor.extract(request, "Bearer");
+        System.out.println("inter token : " + token);
         if (token.isEmpty()) {
             return true;
         }

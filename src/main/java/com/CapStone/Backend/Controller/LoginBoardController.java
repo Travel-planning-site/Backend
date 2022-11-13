@@ -1,7 +1,8 @@
 package com.CapStone.Backend.Controller;
 
 import com.CapStone.Backend.Dto.TokenResponseDto;
-import com.CapStone.Backend.Service.LoginBoard.TokenMananger;
+import com.CapStone.Backend.Dto.UserResponseDto;
+import com.CapStone.Backend.Entity.User;
 import com.CapStone.Backend.Service.LoginBoard.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,20 +28,34 @@ public class LoginBoardController {
     private String RESPONSE_TYPE = "code";
     private String SCOPE = "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile";
     private final UserService userService;
-    private final TokenMananger tokenMananger;
+
+    private String token;
+
     @GetMapping("/login")
     public String login() {
         System.out.println("동작");
         return "redirect:" + ENDPOINT + "?client_id=" + CLIENT_ID + "&redirect_uri=" + REDIRECT_URI
                 + "&response_type=" + RESPONSE_TYPE + "&scope=" + SCOPE;
     }
-    // If there aren't access token and index from FE
 
     @GetMapping("/oauth/google/callback")
-    public ResponseEntity<TokenResponseDto> oauthLogin(@RequestParam("code")String code) {
+    public String oauthLogin(@RequestParam("code")String code) {
         System.out.println("콜백 동작");
         String token = userService.oauthLogin(code);
+        this.token = token;
+        return "redirect:" + "http://localhost:8080/#/Login";
+    }
+
+    @GetMapping("/token")
+    public ResponseEntity<TokenResponseDto> getToken() {
         return new ResponseEntity<>(new TokenResponseDto(token, "bearer"), HttpStatus.OK);
+    }
+
+    @GetMapping("/userInfo")
+    public ResponseEntity<UserResponseDto> getUserFromToken(HttpServletRequest request) {
+        Long id = (Long) request.getAttribute("id");
+        User user = userService.findById((Long) request.getAttribute("id"));
+        return new ResponseEntity<>(new UserResponseDto(user.getId(), user.getName(), user.getEmail()), HttpStatus.OK);
     }
 
 }
