@@ -4,7 +4,6 @@ package com.CapStone.Backend.Entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 
 @Getter
 @NoArgsConstructor
@@ -14,7 +13,6 @@ import java.math.BigInteger;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)

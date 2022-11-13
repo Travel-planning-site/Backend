@@ -3,8 +3,6 @@ package com.CapStone.Backend.Dto;
 import com.CapStone.Backend.Entity.User;
 import lombok.*;
 
-import java.math.BigInteger;
-
 @Setter
 @Getter
 @Builder
@@ -22,6 +20,7 @@ public class GoogleUserDto {
 
 
     public User toUser(String accessToken) {
+        System.out.println("id값 : " + id);
         return new User(id, email, name, accessToken);
     }
 
