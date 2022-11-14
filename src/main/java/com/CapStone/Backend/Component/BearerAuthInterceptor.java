@@ -36,7 +36,7 @@ public class BearerAuthInterceptor implements HandlerInterceptor {
         }
 
         Long id = JwtManager.getSubject(token);
-        request.setAttribute("id", id);
+        request.setAttribute("userId", id);
         return true;
     }
 }

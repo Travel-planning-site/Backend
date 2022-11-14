@@ -34,12 +34,12 @@ public class UserService {
         if (!isJoinedUser(googleUser)) {
             signUp(googleUser, oAuthToken);
         }
-        User user = userRepository.findByEmail(googleUser.getEmail()).orElseThrow(IllegalArgumentException::new);
-        return jwtManager.createToken(user.getId());
+        User user = userRepository.findByUserEmail(googleUser.getEmail()).orElseThrow(IllegalArgumentException::new);
+        return jwtManager.createToken(user.getUserId());
     }
 
     private boolean isJoinedUser(GoogleUserDto googleUser) {
-        Optional<User> users = userRepository.findByEmail(googleUser.getEmail());
+        Optional<User> users = userRepository.findByUserEmail(googleUser.getEmail());
         logger.info("Joined User: {}", users);
         return users.isPresent();
     }
