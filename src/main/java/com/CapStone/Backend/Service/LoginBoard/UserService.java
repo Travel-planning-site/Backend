@@ -24,7 +24,7 @@ public class UserService {
 
     public String oauthLogin(String code) {
         ResponseEntity<String> accessTokenResponse = oauthService.createPostRequest(code);
-        OAuthToken oAuthToken = oauthService.getAccessToken(accessTokenResponse);
+        OAuthToken oAuthToken = oauthService.getToken(accessTokenResponse);
         logger.info("Access Token: {}", oAuthToken.getAccessToken());
 
         ResponseEntity<String> userInfoResponse = oauthService.createGetRequest(oAuthToken);
