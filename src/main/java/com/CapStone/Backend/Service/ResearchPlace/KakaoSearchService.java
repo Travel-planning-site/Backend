@@ -24,7 +24,6 @@ public class KakaoSearchService {
     private String Kakao_API_Key;
 
     public ArrayList<PlaceInfoDTO> getKakaoSearch(String keyword, int pageNum) {
-        System.out.println(pageNum + "번째 KakaoSearchService_getKakaoSearchObject keyword 값 : " + keyword);
         BufferedReader br = null;
         ArrayList<PlaceInfoDTO> placeList = new ArrayList<>();
 

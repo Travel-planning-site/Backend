@@ -59,7 +59,7 @@ public class OAuthService {
         return restTemplate.exchange(url, HttpMethod.POST, httpEntity, String.class);
     }
 
-    public OAuthToken getAccessToken(ResponseEntity<String> response) {
+    public OAuthToken getToken(ResponseEntity<String> response) {
         OAuthToken oAuthToken = null;
         try {
             oAuthToken = objectMapper.readValue(response.getBody(), OAuthToken.class);
