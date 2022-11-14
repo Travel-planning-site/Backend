@@ -2,9 +2,9 @@ package com.CapStone.Backend.Controller;
 
 import com.CapStone.Backend.Dto.CoordinateRequest;
 import com.CapStone.Backend.Dto.NavigationResponse;
-import com.CapStone.Backend.Entity.Coordinate;
 import com.CapStone.Backend.Service.APIService;
 import lombok.RequiredArgsConstructor;
+import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,9 +21,9 @@ public class APIController {
     }
 
     // 카카오 Navi API
-    @GetMapping("/KaokaoNavi")
-    public NavigationResponse kakaoNaviApi(@RequestBody CoordinateRequest coordinateRequest) {
-        return null;
+    @PostMapping("/KakaoNavi")
+    public NavigationResponse kakaoNaviApi(@RequestBody CoordinateRequest coordinateRequest) throws ParseException {
+        return apiService.getRoutes(coordinateRequest);
     }
 
     // 구글 맵 API
