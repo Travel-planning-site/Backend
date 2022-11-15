@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class APIController {
     private final APIService apiService;
+
     // 네이버 검색 Image API
     @GetMapping("/searchImg")
     public String searchImgApi(String query) {
@@ -22,9 +23,14 @@ public class APIController {
 
     // 카카오 Navi API
     @PostMapping("/KakaoNavi")
-    public NavigationResponse kakaoNaviApi(@RequestBody CoordinateRequest coordinateRequest) throws ParseException {
+    public NavigationResponse kakaoNaviApi(@RequestBody CoordinateRequest coordinateRequest) {
         return apiService.getRoutes(coordinateRequest);
     }
 
     // 구글 맵 API
+    @PostMapping("/GoogleMap")
+    public Object GoogleMapApi(@RequestBody CoordinateRequest coordinateRequest) {
+        System.out.println(coordinateRequest.toString());
+        return apiService.getDuration(coordinateRequest);
+    }
 }

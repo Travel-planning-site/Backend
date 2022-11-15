@@ -6,7 +6,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -52,12 +51,12 @@ public class APIService {
         return imgUrl;
     }
 
-    public NavigationResponse getRoutes(CoordinateRequest coordi) throws ParseException {
+    public NavigationResponse getRoutes(CoordinateRequest coordi) {
         RestTemplate restTemplate = new RestTemplate();
 
         String url = "https://apis-navi.kakaomobility.com/v1/directions?" +
-                "origin=" + coordi.getOriginX() + "," + coordi.getOriginY() +
-                "&destination=" + coordi.getDestinationX() + "," + coordi.getDestinationY() +
+                "origin=" + coordi.getOriginY() + "," + coordi.getOriginX() +
+                "&destination=" + coordi.getDestinationY() + "," + coordi.getDestinationX() +
                 "&priority=RECOMMEND";
 
         // Header set
@@ -97,6 +96,28 @@ public class APIService {
 
         System.out.println("hi");
         return resp;
+    }
+
+    public Object getDuration(CoordinateRequest coordi) {
+        RestTemplate restTemplate = new RestTemplate();
+
+        String url = "https://maps.googleapis.com/maps/api/distancematrix/json?" +
+                "units=imperial" +
+                "&mode=transit" +
+                "&origins=" + coordi.getOriginY() +"," + coordi.getOriginX() +
+                "&destinations=" + coordi.getDestinationY() + "," + coordi.getDestinationX() +
+                "&region=KR" +
+                "&key=AIzaSyDq6BYogP8DXJXho6EXr4A87IeyEqc5lo0";
+
+        // Header set
+        HttpHeaders httpHeaders = new HttpHeaders();
+        HttpEntity entity = new HttpEntity(httpHeaders);
+
+        HttpEntity<JSONObject> response = restTemplate.exchange(url, HttpMethod.GET, entity, JSONObject.class);
+        System.out.println(response);
+
+        System.out.println("ooooo");
+        return response.getBody();
     }
 
 }
