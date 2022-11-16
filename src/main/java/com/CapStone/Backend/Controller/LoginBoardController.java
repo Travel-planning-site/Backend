@@ -54,11 +54,9 @@ public class LoginBoardController {
 
     @GetMapping("/userInfo")
     public ResponseEntity<UserResponseDto> getUserFromToken(HttpServletRequest request) {
-        System.out.println("getUserFromToken 동작");
-        Long id = (Long) request.getAttribute("id");
-        System.out.println("getUserFromToken Id : " + id);
-        User user = userService.findById(id);
-        return new ResponseEntity<>(new UserResponseDto(user.getId(), user.getName(), user.getEmail()), HttpStatus.OK);
+        Long id = (Long) request.getAttribute("userId");
+        User user = userService.findById((Long) request.getAttribute("userId"));
+        return new ResponseEntity<>(new UserResponseDto(user.getUserId(), user.getUserName(), user.getUserEmail()), HttpStatus.OK);
     }
 
 }

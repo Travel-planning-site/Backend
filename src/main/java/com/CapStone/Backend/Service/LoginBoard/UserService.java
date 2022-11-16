@@ -24,7 +24,7 @@ public class UserService {
 
     public String oauthLogin(String code) {
         ResponseEntity<String> accessTokenResponse = oauthService.createPostRequest(code);
-        OAuthToken oAuthToken = oauthService.getAccessToken(accessTokenResponse);
+        OAuthToken oAuthToken = oauthService.getToken(accessTokenResponse);
         logger.info("Access Token: {}", oAuthToken.getAccessToken());
 
         ResponseEntity<String> userInfoResponse = oauthService.createGetRequest(oAuthToken);
@@ -34,12 +34,12 @@ public class UserService {
         if (!isJoinedUser(googleUser)) {
             signUp(googleUser, oAuthToken);
         }
-        User user = userRepository.findByEmail(googleUser.getEmail()).orElseThrow(IllegalArgumentException::new);
-        return jwtManager.createToken(user.getId());
+        User user = userRepository.findByUserEmail(googleUser.getEmail()).orElseThrow(IllegalArgumentException::new);
+        return jwtManager.createToken(user.getUserId());
     }
 
     private boolean isJoinedUser(GoogleUserDto googleUser) {
-        Optional<User> users = userRepository.findByEmail(googleUser.getEmail());
+        Optional<User> users = userRepository.findByUserEmail(googleUser.getEmail());
         logger.info("Joined User: {}", users);
         return users.isPresent();
     }

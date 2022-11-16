@@ -13,13 +13,13 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    private Long id;
+    private Long userId;
 
     @Column(nullable = false)
-    private String email;
+    private String userEmail;
 
     @Column(nullable = false)
-    private String name;
+    private String userName;
 
     @Column(nullable = false)
     private String accessToken;

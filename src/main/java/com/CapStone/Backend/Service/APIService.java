@@ -1,10 +1,11 @@
 package com.CapStone.Backend.Service;
 
+import com.CapStone.Backend.Dto.CoordinateRequest;
+import com.CapStone.Backend.Dto.NavigationResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -48,6 +49,75 @@ public class APIService {
 
 
         return imgUrl;
+    }
+
+    public NavigationResponse getRoutes(CoordinateRequest coordi) {
+        RestTemplate restTemplate = new RestTemplate();
+
+        String url = "https://apis-navi.kakaomobility.com/v1/directions?" +
+                "origin=" + coordi.getOriginY() + "," + coordi.getOriginX() +
+                "&destination=" + coordi.getDestinationY() + "," + coordi.getDestinationX() +
+                "&priority=RECOMMEND";
+
+        // Header set
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("Authorization", "KakaoAK c01ebcf3f04756103db0826a158a5c21");
+
+        HttpEntity entity = new HttpEntity(httpHeaders);
+
+        HttpEntity<JSONObject> response = restTemplate.exchange(url, HttpMethod.GET, entity, JSONObject.class);
+        System.out.println(response.getBody());
+
+        // Response JSON 파싱
+        JSONParser parser = new JSONParser();
+        JSONObject obj = null;
+
+        try {
+            obj = (JSONObject)parser.parse(String.valueOf(response.getBody()));
+        } catch (ParseException e) {
+            System.out.print("변환 실패");
+            e.printStackTrace();
+        }
+
+        JSONArray routesArray = (JSONArray) obj.get("routes");
+        JSONObject routeObj = (JSONObject) routesArray.get(0);
+
+
+        long resultCode = (long) routeObj.get("result_code");
+        String resultMsg = (String) routeObj.get("result_msg");
+        JSONArray sectionArray = (JSONArray) routeObj.get("sections");
+
+        JSONObject sections = (JSONObject) sectionArray.get(0);
+        JSONArray guides = (JSONArray) sections.get("guides");
+
+        long duration = (long) sections.get("duration");
+
+        NavigationResponse resp = new NavigationResponse(resultCode, resultMsg, guides, duration);
+
+        System.out.println("hi");
+        return resp;
+    }
+
+    public Object getDuration(CoordinateRequest coordi) {
+        RestTemplate restTemplate = new RestTemplate();
+
+        String url = "https://maps.googleapis.com/maps/api/distancematrix/json?" +
+                "units=imperial" +
+                "&mode=transit" +
+                "&origins=" + coordi.getOriginY() +"," + coordi.getOriginX() +
+                "&destinations=" + coordi.getDestinationY() + "," + coordi.getDestinationX() +
+                "&region=KR" +
+                "&key=AIzaSyDq6BYogP8DXJXho6EXr4A87IeyEqc5lo0";
+
+        // Header set
+        HttpHeaders httpHeaders = new HttpHeaders();
+        HttpEntity entity = new HttpEntity(httpHeaders);
+
+        HttpEntity<JSONObject> response = restTemplate.exchange(url, HttpMethod.GET, entity, JSONObject.class);
+        System.out.println(response);
+
+        System.out.println("ooooo");
+        return response.getBody();
     }
 
 }

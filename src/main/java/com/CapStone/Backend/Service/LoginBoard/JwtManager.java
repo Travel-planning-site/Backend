@@ -28,6 +28,7 @@ public class JwtManager {
 
     // 토큰 생성
     public String createToken(Long id) {
+        System.out.println("id값 : " + id);
         Claims claims = Jwts.claims().setSubject(String.valueOf(id));
 
         Date now = new Date();

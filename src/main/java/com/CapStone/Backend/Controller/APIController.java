@@ -2,9 +2,9 @@ package com.CapStone.Backend.Controller;
 
 import com.CapStone.Backend.Dto.CoordinateRequest;
 import com.CapStone.Backend.Dto.NavigationResponse;
-import com.CapStone.Backend.Entity.Coordinate;
 import com.CapStone.Backend.Service.APIService;
 import lombok.RequiredArgsConstructor;
+import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class APIController {
     private final APIService apiService;
+
     // 네이버 검색 Image API
     @GetMapping("/searchImg")
     public String searchImgApi(String query) {
@@ -21,10 +22,15 @@ public class APIController {
     }
 
     // 카카오 Navi API
-    @GetMapping("/KaokaoNavi")
+    @PostMapping("/KakaoNavi")
     public NavigationResponse kakaoNaviApi(@RequestBody CoordinateRequest coordinateRequest) {
-        return null;
+        return apiService.getRoutes(coordinateRequest);
     }
 
     // 구글 맵 API
+    @PostMapping("/GoogleMap")
+    public Object GoogleMapApi(@RequestBody CoordinateRequest coordinateRequest) {
+        System.out.println(coordinateRequest.toString());
+        return apiService.getDuration(coordinateRequest);
+    }
 }
