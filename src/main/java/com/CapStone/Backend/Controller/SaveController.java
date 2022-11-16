@@ -22,8 +22,8 @@ public class SaveController {
         return basicInfoService.saveInfo(request);
     }
 
-    @PostMapping("/travle")
-    public void travlePlan(@RequestBody TravelInfoRequest request) {
+    @PostMapping("/travel")
+    public void travelPlan(@RequestBody TravelInfoRequest request) {
         System.out.println(request.toString());
         travelInfoService.saveTravleInfo(request);
     }
