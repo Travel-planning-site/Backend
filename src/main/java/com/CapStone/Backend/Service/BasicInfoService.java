@@ -42,4 +42,9 @@ public class BasicInfoService {
         }
         return respList;
     }
+
+    public String deletePlan(int idx) {
+        infoRepository.deleteById(idx);
+        return "삭제완료";
+    }
 }

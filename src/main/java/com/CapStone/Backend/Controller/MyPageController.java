@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/myPlan")
+@RequestMapping("/myPage")
 @CrossOrigin
 @RequiredArgsConstructor
 public class MyPageController {
@@ -20,5 +20,10 @@ public class MyPageController {
     @GetMapping("/plan")
     public List<BasicInfoResponse> saveInfo() { // 기본정보와 여행계획 같이 담아서 반환
         return basicInfoService.selectPlan();
+    }
+
+    @DeleteMapping("/plan/{idx}")
+    public String deleteInfo(@PathVariable("idx") int idx) { // 기본정보와 여행계획 같이 담아서 반환
+        return basicInfoService.deletePlan(idx);
     }
 }
