@@ -22,7 +22,7 @@ public class Info {
     private String people;
 
     @Column(nullable = false)
-    private int period;
+    private String period;
 
     @Column(nullable = false)
     private Long userId;

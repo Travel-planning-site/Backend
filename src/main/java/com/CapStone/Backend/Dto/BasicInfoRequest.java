@@ -9,7 +9,7 @@ public class BasicInfoRequest {
     private String title;
     private String place;
     private String people;
-    private int period;
+    private String period;
     private Long userId;
     private String memo;
 }
