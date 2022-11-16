@@ -30,4 +30,7 @@ public class Info {
     @Column(nullable = false)
     private String memo;
 
+    public int getIdx() {
+        return idx;
+    }
 }
