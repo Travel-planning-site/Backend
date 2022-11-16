@@ -48,6 +48,7 @@ public class LoginBoardController {
 
     @GetMapping("/token")
     public ResponseEntity<TokenResponseDto> getToken() {
+        System.out.println("getToken() 동작");
         return new ResponseEntity<>(new TokenResponseDto(token, "bearer"), HttpStatus.OK);
     }
 
