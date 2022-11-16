@@ -1,9 +1,9 @@
 package com.CapStone.Backend.Controller;
 
 import com.CapStone.Backend.Dto.BasicInfoRequest;
-import com.CapStone.Backend.Dto.TravleInfoRequest;
+import com.CapStone.Backend.Dto.TravelInfoRequest;
 import com.CapStone.Backend.Service.BasicInfoService;
-import com.CapStone.Backend.Service.TravleInfoService;
+import com.CapStone.Backend.Service.TravelInfoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class SaveController {
 
     private final BasicInfoService basicInfoService;
-    private final TravleInfoService travleInfoService;
+    private final TravelInfoService travelInfoService;
 
     @PostMapping("/basic")
     public int saveInfo(@RequestBody BasicInfoRequest request) {
@@ -23,8 +23,8 @@ public class SaveController {
     }
 
     @PostMapping("/travle")
-    public void travlePlan(@RequestBody TravleInfoRequest request) {
+    public void travlePlan(@RequestBody TravelInfoRequest request) {
         System.out.println(request.toString());
-        travleInfoService.saveTravleInfo(request);
+        travelInfoService.saveTravleInfo(request);
     }
 }

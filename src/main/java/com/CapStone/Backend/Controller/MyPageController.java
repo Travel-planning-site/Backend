@@ -2,7 +2,7 @@ package com.CapStone.Backend.Controller;
 
 import com.CapStone.Backend.Dto.BasicInfoResponse;
 import com.CapStone.Backend.Service.BasicInfoService;
-import com.CapStone.Backend.Service.TravleInfoService;
+import com.CapStone.Backend.Service.TravelInfoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +15,7 @@ import java.util.List;
 public class MyPageController {
 
     private final BasicInfoService basicInfoService;
-    private final TravleInfoService travleInfoService;
+    private final TravelInfoService travelInfoService;
 
     @GetMapping("/plan")
     public List<BasicInfoResponse> saveInfo() { // 기본정보와 여행계획 같이 담아서 반환
