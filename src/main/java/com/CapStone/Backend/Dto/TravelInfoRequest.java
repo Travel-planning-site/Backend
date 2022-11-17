@@ -5,7 +5,7 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public class TravleInfoRequest {
+public class TravelInfoRequest {
     private int infoIdx;
     private String startPlaceImg;
     private String arrivalPlaceImg;

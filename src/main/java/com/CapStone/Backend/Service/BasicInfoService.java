@@ -3,9 +3,9 @@ package com.CapStone.Backend.Service;
 import com.CapStone.Backend.Dto.BasicInfoRequest;
 import com.CapStone.Backend.Dto.BasicInfoResponse;
 import com.CapStone.Backend.Entity.Info;
-import com.CapStone.Backend.Entity.Travle;
+import com.CapStone.Backend.Entity.Travel;
 import com.CapStone.Backend.Repository.InfoRepository;
-import com.CapStone.Backend.Repository.TravleInfoRepository;
+import com.CapStone.Backend.Repository.TravelInfoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BasicInfoService {
     private final InfoRepository infoRepository;
-    private final TravleInfoRepository travleInfoRepository;
+    private final TravelInfoRepository travelInfoRepository;
     public int saveInfo(BasicInfoRequest basicInfo) {
         Info info = new Info();
         info.setTitle(basicInfo.getTitle());
@@ -36,8 +36,8 @@ public class BasicInfoService {
         List<Info> infos = infoRepository.findAll();
 
         for (Info info : infos) {
-            List<Travle> travles = travleInfoRepository.findAllByInfoIdx(info.getIdx());
-            BasicInfoResponse basicInfo = new BasicInfoResponse(info, travles);
+            List<Travel> travels = travelInfoRepository.findAllByInfoIdx(info.getIdx());
+            BasicInfoResponse basicInfo = new BasicInfoResponse(info, travels);
             respList.add(basicInfo);
         }
         return respList;
