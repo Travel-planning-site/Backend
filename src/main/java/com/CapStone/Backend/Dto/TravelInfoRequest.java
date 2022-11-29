@@ -16,6 +16,7 @@ public class TravelInfoRequest {
     private String startTime;
     private String arriveTime;
     private String transportation;
+    private int date;
     private String memo;
     private long userId;
 }
