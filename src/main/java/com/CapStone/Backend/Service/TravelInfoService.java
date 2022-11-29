@@ -23,6 +23,7 @@ public class TravelInfoService {
         travel.setTransportation(request.getTransportation());
         travel.setTotalTime(request.getTotalTime());
         travel.setMemo(request.getMemo());
+        travel.setDate(request.getDate());
         travel.setUserId(request.getUserId());
         travelInfoRepository.save(travel);
     }
